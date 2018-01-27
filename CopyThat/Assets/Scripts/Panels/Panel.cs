@@ -11,8 +11,7 @@ public class Panel : MonoBehaviour
 
     // MEMBERS / FIELDS
     #region Members
-    private ModuleType[][] panelGrid;
-
+    public GameObject panelUI;
     #endregion
 
 
@@ -37,23 +36,11 @@ public class Panel : MonoBehaviour
 
 
     /// <summary>
-    /// Generate a new panel grid of pieces of size 24x8, and then
-    /// determine which pieces should go into the panel
+    /// Turn the Security UI on or off
     /// </summary>
-    public void GeneratePanelGrid()
+    /// <param name="active">Should the UI be active? True = yes</param>
+    protected void SetUIActive(bool active)
     {
-        GeneratePanelGrid(24, 8);
-    }
-
-    /// <summary>
-    /// Generate a new panel grid with a given number of tiles, and then
-    /// determine which pieces should go into the panel
-    /// </summary>
-    /// <param name="xGridLength">Horizontal number of grid spaces</param>
-    /// <param name="yGridLength">Vertical number of grid spaces
-    /// (should be one or greater)</param>
-    public void GeneratePanelGrid(uint xGridLength, uint yGridLength)
-    {
-
+        panelUI.SetActive(active);
     }
 }
