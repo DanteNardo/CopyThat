@@ -20,6 +20,7 @@ public abstract class Module : MonoBehaviour
 	public string label;
 	protected int width;
 	protected int height;
+    public controlState currentState;
 
 	public int Width { get; set; }
    

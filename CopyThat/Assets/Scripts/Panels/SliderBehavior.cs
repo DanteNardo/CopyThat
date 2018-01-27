@@ -4,14 +4,15 @@ using UnityEngine;
 
 public class SliderBehavior : Module
 {
-
-    public Camera camera;
     public controlState currentState;
-    public float spaceBetween;
-    public float MinMin;
-    public float MinMed;
-    public float MedMax;
-    public float MaxMax;
+    private float MinMin;
+    private float MinMed;
+    private float MedMax;
+    private float MaxMax;
+    public GameObject AbsMinMark;
+    public GameObject MinMedMark;
+    public GameObject MedMaxMark;
+    public GameObject AbsMaxMark;
     public GameObject arrow;
     float arPos;
     Vector3 screenPoint;
@@ -20,10 +21,10 @@ public class SliderBehavior : Module
     // Use this for initialization
     void Start()
     {
-        MinMin = (GameObject.FindGameObjectWithTag("MinMin") as GameObject).transform.position.y;
-        MinMed = (GameObject.FindGameObjectWithTag("MinMed") as GameObject).transform.position.y;
-        MedMax = (GameObject.FindGameObjectWithTag("MedMax") as GameObject).transform.position.y;
-        MaxMax = (GameObject.FindGameObjectWithTag("MaxMax") as GameObject).transform.position.y;
+        MinMin = AbsMinMark.transform.position.y;
+        MinMed = MinMedMark.transform.position.y;
+        MedMax = MedMaxMark.transform.position.y;
+        MaxMax = AbsMaxMark.transform.position.y;
 
         transform.position = new Vector3(gameObject.transform.position.x, Random.Range(MinMin, MaxMax), gameObject.transform.position.z);
         
@@ -36,7 +37,7 @@ public class SliderBehavior : Module
         arPos = arrow.transform.position.y;
         if (Input.GetMouseButtonDown(0))
         {
-            RaycastHit2D hit = Physics2D.Raycast(camera.ScreenToWorldPoint(Input.mousePosition), Vector2.zero);
+            RaycastHit2D hit = Physics2D.Raycast(Camera.main.ScreenToWorldPoint(Input.mousePosition), Vector2.zero);
             if (hit)
             {
                 Interact();
@@ -72,9 +73,9 @@ public class SliderBehavior : Module
     // Moves the slider
     protected override void Interact()
     {
-        screenPoint = camera.WorldToScreenPoint(gameObject.transform.position);
+        screenPoint = Camera.main.WorldToScreenPoint(gameObject.transform.position);
 
-        offset = gameObject.transform.position - camera.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, screenPoint.z));
+        offset = gameObject.transform.position - Camera.main.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, screenPoint.z));
         Debug.Log("Inteact Hit");
     }
 
@@ -82,7 +83,7 @@ public class SliderBehavior : Module
     {
         Vector3 curScreenPoint = new Vector3(Input.mousePosition.x, Input.mousePosition.y, screenPoint.z);
 
-        Vector3 curPosition = camera.ScreenToWorldPoint(curScreenPoint - offset);
+        Vector3 curPosition = Camera.main.ScreenToWorldPoint(curScreenPoint - offset);
         transform.position = new Vector3(gameObject.transform.position.x, curPosition.y, gameObject.transform.position.z);
     }
 

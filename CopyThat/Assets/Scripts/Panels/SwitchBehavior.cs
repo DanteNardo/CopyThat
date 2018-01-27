@@ -4,8 +4,7 @@ using UnityEngine;
 
 public class SwitchBehavior : Module {
 
-	public Camera camera;
-	public controlState currentState;
+	//public controlState currentState;
 
 	// Use this for initialization
 	void Start ()
@@ -22,7 +21,7 @@ public class SwitchBehavior : Module {
 	void Update () {
 		if (Input.GetMouseButtonDown(0))
 		{
-            RaycastHit2D hit = Physics2D.Raycast(camera.ScreenToWorldPoint(Input.mousePosition), Vector2.zero);
+            RaycastHit2D hit = Physics2D.Raycast(Camera.main.ScreenToWorldPoint(Input.mousePosition), Vector2.zero);
             if (hit)
             {
                 Interact();
