@@ -10,6 +10,7 @@ public class Distortion
 {
     #region Distortion Members
 
+    private float m_length;
     public float m_beepIter = 1.0f;
     public float m_normalIter = 1.0f;
     private List<float> m_radioDistortion;          // Used to determine the strength of radio static
@@ -17,6 +18,7 @@ public class Distortion
     private List<float> m_waveStrengthDistortion;   // Used to determine the overall strength of the signal
 
     // Properties for getting
+    public float Length { get { return m_length; } }
     public List<float> RadioDistortion { get { return m_radioDistortion; } }
     public List<float> BeepDistortion { get { return m_beepDistortion; } }
     public List<float> WaveStrengthDistortion { get { return m_waveStrengthDistortion; } }
@@ -31,28 +33,29 @@ public class Distortion
     /// <param name="length">The length of the distortion data</param>
     public void CalculateDistortion(int length)
     {
+        m_length = length;
+
         m_radioDistortion = new List<float>();
         m_beepDistortion = new List<float>();
         m_waveStrengthDistortion = new List<float>();
 
-        CreateRadioDistortion(length);
-        CreateBeepDistortion(length);
-        CreateWaveStrengthDistortion(length);
+        CreateRadioDistortion();
+        CreateBeepDistortion();
+        CreateWaveStrengthDistortion();
     }
 
     /// <summary>
     /// Use Perlin Noise to determine the overall strength of radio static.
     /// </summary>
-    /// <param name="length">The length of the distortion data</param>
-    public void CreateRadioDistortion(int length)
+    public void CreateRadioDistortion()
     {
         // Decide a random spot in the PerlinNoise tex and determine iter
         float xPos = Random.Range(0.0f, 1.0f);
         float yPos = Random.Range(0.0f, 1.0f);
-        float iter = length * 0.01f;
+        float iter = m_length * 0.01f;
 
         // Iterate through Perlin Noise and assign values
-        for (int i = 0; i < length; i++)
+        for (int i = 0; i < m_length; i++)
         {
             // Update pos in Perlin Noise each iteration
             xPos += iter;
@@ -72,13 +75,12 @@ public class Distortion
     /// <summary>
     /// Randomly create beeps and glitches of varying strength and length.
     /// </summary>
-    /// <param name="length">The length of the distortion data</param>
-    public void CreateBeepDistortion(int length)
+    public void CreateBeepDistortion()
     {
         float r = Random.Range(0, 101);
         float iter = m_beepIter;
 
-        for (int i = 0; i < length; i++)
+        for (int i = 0; i < m_length; i++)
         {
             // Beep generated
             if (r >= 100)
@@ -104,14 +106,13 @@ public class Distortion
     /// <summary>
     /// Uses a sin wave to determine the overall strength of the transmission over time.
     /// </summary>
-    /// <param name="length">The length of the distortion data</param>
-    public void CreateWaveStrengthDistortion(int length)
+    public void CreateWaveStrengthDistortion()
     {
         // Random starting sin function position
         float pos = Random.Range(0.0f, 2 * Mathf.PI);
-        for (int i = 0; i < length; i++)
+        for (int i = 0; i < m_length; i++)
         {
-            m_waveStrengthDistortion.Add(Mathf.Clamp(Mathf.Sin(pos), 0.33f, 1.0f));
+            m_waveStrengthDistortion.Add(Mathf.Clamp(Mathf.Sin(pos), 0.01f, 1.0f));
             pos += m_normalIter;
         }
     }
