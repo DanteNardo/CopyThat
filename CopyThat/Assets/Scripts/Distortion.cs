@@ -12,7 +12,7 @@ public class Distortion
 
     private float m_length;
     public float m_beepIter = 1.0f;
-    public float m_normalIter = 1.0f;
+    public float m_waveIter = 1.0f;
     private List<float> m_radioDistortion;          // Used to determine the strength of radio static
     private List<float> m_beepDistortion;           // Used to determine when to beep and for how long
     private List<float> m_waveStrengthDistortion;   // Used to determine the overall strength of the signal
@@ -112,8 +112,8 @@ public class Distortion
         float pos = Random.Range(0.0f, 2 * Mathf.PI);
         for (int i = 0; i < m_length; i++)
         {
-            m_waveStrengthDistortion.Add(Mathf.Clamp(Mathf.Sin(pos), 0.01f, 1.0f));
-            pos += m_normalIter;
+            m_waveStrengthDistortion.Add(Mathf.Clamp(Mathf.Sin(pos), 0.2f, 1.0f));
+            pos += m_waveIter;
         }
     }
 
