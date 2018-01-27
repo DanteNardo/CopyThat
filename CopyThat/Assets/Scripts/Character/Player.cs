@@ -68,20 +68,20 @@ public class Player : MonoBehaviour
 
         gravity = -(2 * maxJumpHeight) / Mathf.Pow(timeToJumpApex, 2);
         maxJumpForce = Mathf.Abs(gravity) * timeToJumpApex;
-        minJumpForce = Mathf.Sqrt(2 * Mathf.Abs(gravity) * minJumpHeight); 
+        minJumpForce = Mathf.Sqrt(2 * Mathf.Abs(gravity) * minJumpHeight);
         //print("Gravity:" + gravity + " Jump Velocity: " + jumpForce);
     }
 
     // Update is called once per frame
     private void Update()
     {
-        // Game is paused. Do not update.
-        if(Time.timeScale < 1)
-        {
-            return;
-        }
 
-  
+        if(input.GetSubmitDown())
+        {
+            Debug.Log("Submit Pressed"); 
+        }
+        
+
         if(controller.collisions.below)
         {
 			canWallJump = true;
@@ -91,7 +91,7 @@ public class Player : MonoBehaviour
         updatedInput = input.GetAxes(); //new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical"));
         
         CalculateVelocity();
-        HandleWallSliding();
+        //HandleWallSliding();
 
         // Jump Input 
         if (input.GetJumpingDown())
@@ -278,7 +278,6 @@ public class Player : MonoBehaviour
         //transform.localScale = theScale;
         spriteReference.flipX = !spriteReference.flipX; 
     }
-
 
     // Collision 2D functions 
 	void OnCollisionEnter2D(Collision2D coll)

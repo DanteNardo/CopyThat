@@ -10,7 +10,7 @@ public class InputManager : MonoBehaviour {
 
     private Vector2 axes;
     private bool isJumpingDown;
-    private bool isPausedDown;
+    private bool isSubmitDown;
     private bool isDownPressed;
     private bool isUpPressed; 
 
@@ -27,10 +27,9 @@ public class InputManager : MonoBehaviour {
         isDownPressed = (Input.GetAxis("Vertical") < 0) ? true : false;
         isUpPressed = (Input.GetAxis("Vertical") > 0) ? true : false;
 
-
         // Get button presses from controller
         isJumpingDown = Input.GetButton("Jump");
-        isPausedDown = Input.GetButton("Submit");
+        isSubmitDown = Input.GetButton("Submit");
     }
 
     // Class Getters ---------------------------------------------
@@ -45,9 +44,9 @@ public class InputManager : MonoBehaviour {
         return isJumpingDown;
     }
 
-    public bool GetPausedDown()
+    public bool GetSubmitDown()
     {
-        return isPausedDown; 
+        return isSubmitDown; 
     }
 
     public bool GetDownPressed()
