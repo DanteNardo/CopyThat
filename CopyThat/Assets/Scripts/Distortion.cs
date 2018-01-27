@@ -1,16 +1,120 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
 
-public class Distortion : MonoBehaviour {
+/// <summary>
+/// Author: Dante Nardo
+/// Last Modified: 1/26/2018
+/// Purpose: Creates different distortion values for different types of sounds.
+/// </summary>
+public class Distortion
+{
+    #region Distortion Members
 
-	// Use this for initialization
-	void Start () {
-		
-	}
-	
-	// Update is called once per frame
-	void Update () {
-		
-	}
+    public float m_beepIter = 1.0f;
+    public float m_normalIter = 1.0f;
+    private List<float> m_radioDistortion;          // Used to determine the strength of radio static
+    private List<float> m_beepDistortion;           // Used to determine when to beep and for how long
+    private List<float> m_waveStrengthDistortion;   // Used to determine the overall strength of the signal
+
+    // Properties for getting
+    public List<float> RadioDistortion { get { return m_radioDistortion; } }
+    public List<float> BeepDistortion { get { return m_beepDistortion; } }
+    public List<float> WaveStrengthDistortion { get { return m_waveStrengthDistortion; } }
+
+    #endregion
+
+    #region Distortion Methods
+
+    /// <summary>
+    /// Calculates each form of distortion for audio and text.
+    /// </summary>
+    /// <param name="length">The length of the distortion data</param>
+    public void CalculateDistortion(int length)
+    {
+        m_radioDistortion = new List<float>();
+        m_beepDistortion = new List<float>();
+        m_waveStrengthDistortion = new List<float>();
+
+        CreateRadioDistortion(length);
+        CreateBeepDistortion(length);
+        CreateWaveStrengthDistortion(length);
+    }
+
+    /// <summary>
+    /// Use Perlin Noise to determine the overall strength of radio static.
+    /// </summary>
+    /// <param name="length">The length of the distortion data</param>
+    public void CreateRadioDistortion(int length)
+    {
+        // Decide a random spot in the PerlinNoise tex and determine iter
+        float xPos = Random.Range(0.0f, 1.0f);
+        float yPos = Random.Range(0.0f, 1.0f);
+        float iter = length * 0.01f;
+
+        // Iterate through Perlin Noise and assign values
+        for (int i = 0; i < length; i++)
+        {
+            // Update pos in Perlin Noise each iteration
+            xPos += iter;
+            if (xPos > 1.0f)
+            {
+                xPos = 0.0f;
+                yPos += iter;
+                if (yPos > 1.0f)
+                    yPos = 0.0f;
+            }
+
+            // Add Perlin Noise value to radio distortion list
+            m_radioDistortion.Add(Mathf.PerlinNoise(xPos, yPos));
+        }
+    }
+
+    /// <summary>
+    /// Randomly create beeps and glitches of varying strength and length.
+    /// </summary>
+    /// <param name="length">The length of the distortion data</param>
+    public void CreateBeepDistortion(int length)
+    {
+        float r = Random.Range(0, 101);
+        float iter = m_beepIter;
+
+        for (int i = 0; i < length; i++)
+        {
+            // Beep generated
+            if (r >= 100)
+            {
+                // Register beep and reset chance to beep to 1/100
+                m_beepDistortion.Add(1.0f);
+                r = Random.Range(0, 101);
+                iter = 0;
+            }
+            // No beep generated, increase chance of beeping
+            else
+            {
+                m_beepDistortion.Add(0.0f);
+
+                // Determine random value and increase iter (chance of beep)
+                r = Random.Range(0, 101);
+                r += iter;
+            }
+
+        }
+    }
+
+    /// <summary>
+    /// Uses a sin wave to determine the overall strength of the transmission over time.
+    /// </summary>
+    /// <param name="length">The length of the distortion data</param>
+    public void CreateWaveStrengthDistortion(int length)
+    {
+        // Random starting sin function position
+        float pos = Random.Range(0.0f, 2 * Mathf.PI);
+        for (int i = 0; i < length; i++)
+        {
+            m_waveStrengthDistortion.Add(Mathf.Clamp(Mathf.Sin(pos), 0.33f, 1.0f));
+            pos += m_normalIter;
+        }
+    }
+
+    #endregion
 }
