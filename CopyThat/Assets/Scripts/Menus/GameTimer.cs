@@ -10,7 +10,6 @@ public class GameTimer : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-
         textElem = GetComponent<Text>(); 
     }
 	
