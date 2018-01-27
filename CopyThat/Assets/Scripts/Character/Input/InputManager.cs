@@ -27,7 +27,6 @@ public class InputManager : MonoBehaviour {
         isDownPressed = (Input.GetAxis("Vertical") < 0) ? true : false;
         isUpPressed = (Input.GetAxis("Vertical") > 0) ? true : false;
 
-
         // Get button presses from controller
         isJumpingDown = Input.GetButton("Jump");
         isSubmitDown = Input.GetButton("Submit");

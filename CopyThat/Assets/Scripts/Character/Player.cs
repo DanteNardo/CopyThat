@@ -279,7 +279,6 @@ public class Player : MonoBehaviour
         spriteReference.flipX = !spriteReference.flipX; 
     }
 
-
     // Collision 2D functions 
 	void OnCollisionEnter2D(Collision2D coll)
 	{

@@ -9,6 +9,14 @@ public enum GAME_STATE
     Flight
 }
 
+public enum APP_STATE
+{
+    Start, 
+    Playing, 
+    Restart, 
+    Quit
+}
+
 public class GameStateManager : Singleton<GameStateManager>
 {
     protected GameStateManager () { } // // guarantee this will be always a singleton only - can't use the constructor!
@@ -28,5 +36,16 @@ public class GameStateManager : Singleton<GameStateManager>
     }
     public delegate void OnVariableChangeDelegate(GAME_STATE pState);
     public event OnVariableChangeDelegate OnStateChange;
+
+    private APP_STATE appState = APP_STATE.Start;
+    public APP_STATE AppState
+    {
+        get { return appState; }
+        set
+        {
+            if (appState == value) return;
+            appState = value;
+        }
+    }
 
 }
