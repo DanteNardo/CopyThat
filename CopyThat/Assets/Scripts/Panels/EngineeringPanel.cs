@@ -61,12 +61,12 @@ public class EngineeringPanel : MonoBehaviour {
         }
 
         // Check to see if we are done if we are target
-        if (GameStateManager.Instance.TargetState == GAME_STATE.Security)
+        if (GameStateManager.Instance.TargetState == GAME_STATE.Engineering)
         {
             if (Completed())
             {
+                PanelManager.Instance.CloseEng();
                 GameStateManager.Instance.TargetState = GAME_STATE.Communication;
-                GameStateManager.Instance.GameState = GAME_STATE.Navigating;
                 PanelManager.Instance.m_commsPanel.NextInstruction();
             }
         }

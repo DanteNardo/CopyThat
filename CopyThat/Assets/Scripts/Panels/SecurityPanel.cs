@@ -42,8 +42,8 @@ public class SecurityPanel : Panel {
         {
             if (completed)
             {
+                PanelManager.Instance.CloseSecurity();
                 GameStateManager.Instance.TargetState = GAME_STATE.Communication;
-                GameStateManager.Instance.GameState = GAME_STATE.Navigating;
                 PanelManager.Instance.m_commsPanel.NextInstruction();
             }
         }
@@ -57,7 +57,6 @@ public class SecurityPanel : Panel {
         if (usernameInput.GetComponent<InputField>().text.ToLower() == usernameGoal
             && passwordInput.GetComponent<InputField>().text.ToLower() == passwordGoal)
         {
-            GameStateManager.Instance.GameState = GAME_STATE.Navigating;
             completed = true;
         }
     }
