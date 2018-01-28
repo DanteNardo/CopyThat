@@ -51,7 +51,7 @@ public class DistortionManager : MonoBehaviour
             DistortTransmission(m_currentAudio, "text");
         }
     }
-
+        
     public void DistortTransmission(AudioClip audio, string text)
     {
         m_distortion.CalculateDistortion((int)audio.length);

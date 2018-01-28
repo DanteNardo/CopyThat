@@ -12,11 +12,14 @@ public class AudioDistortion : MonoBehaviour
 {
     #region Audio Distortion Members
 
-    private AudioSource m_audioPlayer;
+    public AudioSource m_audioPlayer;
+    public AudioSource m_staticPlayer;
     private AudioDistortionFilter m_distortionFilter;
     private Distortion m_distortion;
 
     private AudioClip m_beep;
+    private const float MinStatic = 0.0f;
+    private const float MaxStatic = 0.5f;
 
     #endregion
 
@@ -24,8 +27,8 @@ public class AudioDistortion : MonoBehaviour
 
     public void Start()
     {
-        m_audioPlayer = GetComponent<AudioSource>();
         m_distortionFilter = GetComponent<AudioDistortionFilter>();
+        m_distortionFilter.distortionLevel = 0;
     }
 
     public void SetDistortion(Distortion distortion)
@@ -42,16 +45,37 @@ public class AudioDistortion : MonoBehaviour
     private IEnumerator DistortingAudio()
     {
         int i = 0;
+        float t = 0.0f;
+        float staticVolume = m_staticPlayer.volume;
+        float audioVolume = m_audioPlayer.volume;
+        float nextStatic = 1 - m_distortion.WaveStrengthDistortion[i];
+        float nextAudio = m_distortion.WaveStrengthDistortion[i];
+        m_staticPlayer.Play();
         m_audioPlayer.Play();
 
         // Distort while the index (which is increased at the rate of 1/s) is less than length of audio
         while (i < m_distortion.Length)
         {
-            m_distortionFilter.distortionLevel = m_distortion.RadioDistortion[i];
-            m_audioPlayer.volume = m_distortion.WaveStrengthDistortion[i];
-            yield return new WaitForSeconds(1);
-            i++;
+            t += Time.deltaTime;
+            if (t > 1.0f)
+            {
+                staticVolume = nextStatic;
+                audioVolume = nextAudio;
+                nextStatic = Mathf.Clamp(1 - m_distortion.WaveStrengthDistortion[i], MinStatic, MaxStatic);
+                nextAudio = m_distortion.WaveStrengthDistortion[i];
+                t = 0.0f;
+                i++;
+            }
+
+            m_staticPlayer.volume = Mathf.Lerp(staticVolume, nextStatic, t);
+            m_audioPlayer.volume = Mathf.Lerp(audioVolume, nextAudio, t);
+            yield return null;
         }
+
+        m_staticPlayer.volume = 0.5f;
+        m_audioPlayer.volume = 1.0f;
+        m_staticPlayer.Stop();
+        m_audioPlayer.Stop();
 
         yield break;
     }
