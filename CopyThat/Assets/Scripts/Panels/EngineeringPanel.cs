@@ -51,7 +51,11 @@ public class EngineeringPanel : MonoBehaviour {
     {
         leverPressed = false;
         buttonOnePressCount = 0;
-        statusColor.color = Color.red; 
+        if(statusColor != null)
+        {
+            statusColor.color = Color.red;
+        }
+        
     }
 
     void PlayButtonSound()

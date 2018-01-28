@@ -49,10 +49,14 @@ public class LeverImageSwitch : MonoBehaviour, IPointerDownHandler
     void OnDisable()
     {
         //Debug.Log("DISABLED");
-        if(image.sprite != pressedImage)
+        if(image != null )
         {
-            switchImage();
+            if (image.sprite != pressedImage)
+            {
+                switchImage();
+            }
         }
+        
         
     }
 
