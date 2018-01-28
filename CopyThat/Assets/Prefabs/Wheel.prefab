@@ -59,8 +59,8 @@ MonoBehaviour:
   label: Wheel
   currentState: 1
   moduleType: 0
-  minGoalAngle: -140
-  maxGoalAngle: -125
+  minGoalAngle: 226
+  maxGoalAngle: 228.9
 --- !u!114 &114167793820345474
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -80,7 +80,7 @@ MonoBehaviour:
       m_Calls: []
     m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
-  m_Sprite: {fileID: 21300000, guid: 07268d3646df93d4fb0dd85a8f9ae044, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 08c7e4088af4c2e42bc2a2dd269c0a64, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -100,15 +100,15 @@ RectTransform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1076517137335884}
-  m_LocalRotation: {x: -0, y: -0, z: 0.9944705, w: -0.10501716}
-  m_LocalPosition: {x: 297, y: 46, z: 0}
-  m_LocalScale: {x: 2.7783308, y: 2.7783298, z: 2.7783298}
+  m_LocalRotation: {x: -0, y: -0, z: -0.4240329, w: 0.90564686}
+  m_LocalPosition: {x: 297.0002, y: 46.000103, z: 0}
+  m_LocalScale: {x: 2.7783334, y: 2.7783327, z: 2.7783296}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 192.05598}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: -50.179}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 297, y: 46}
+  m_AnchoredPosition: {x: 297.0002, y: 46.000103}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
