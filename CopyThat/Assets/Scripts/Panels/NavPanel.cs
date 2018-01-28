@@ -10,10 +10,9 @@ public class NavPanel : Panel
     // MEMBERS
 
     public GameObject MapLocation;
-    public GameObject LaunchButton;
-
-    Module button;
+   
     Module map;
+    bool isPressed;
 
     //public delegate void ActivationDelegate();
     //public event ActivationDelegate OnStateChange;
@@ -22,9 +21,9 @@ public class NavPanel : Panel
     // Use this for initialization
     void Start()
     {
+        //GameStateManager.Instance.TargetState = GAME_STATE.Flight;
         SetUIActive(false);
-
-        button = LaunchButton.GetComponent<SwitchBehavior>();
+        isPressed = false;
         map = MapLocation.GetComponent<MapLogic>();
 
     }
@@ -34,7 +33,7 @@ public class NavPanel : Panel
         // Check to see if we are done if we are target
         if (GameStateManager.Instance.TargetState == GAME_STATE.Flight)
         {
-            if (button.currentState == Module.controlState.on)
+            if (isPressed)
             {
                 Debug.Log("Button On");
                 if (map.currentState == Module.controlState.on)
@@ -44,7 +43,6 @@ public class NavPanel : Panel
                     GameStateManager.Instance.TargetState = GAME_STATE.Communication;
                     GameStateManager.Instance.GameState = GAME_STATE.Navigating;
                     GameStateManager.Instance.AppState = APP_STATE.Won;
-                    PanelManager.Instance.m_commsPanel.NextInstruction();
                 }
                 else
                 {
@@ -53,7 +51,6 @@ public class NavPanel : Panel
                     GameStateManager.Instance.AppState = APP_STATE.Lost;
                 }
             }
-
         }
     }
 
@@ -62,7 +59,7 @@ public class NavPanel : Panel
     /// </summary>
     public void TestForActivation()
     {
-
+        isPressed = true;
     }
 
     private bool Completed()
