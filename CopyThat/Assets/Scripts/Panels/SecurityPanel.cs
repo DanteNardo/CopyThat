@@ -33,11 +33,20 @@ public class SecurityPanel : Panel {
             }
         }
 	}
-	
-	// Update is called once per frame
-	void Update () {
-		
-	}
+
+    private void Update()
+    {
+        // Check to see if we are done if we are target
+        if (GameStateManager.Instance.TargetState == GAME_STATE.Security)
+        {
+            if (Completed())
+            {
+                GameStateManager.Instance.TargetState = GAME_STATE.Communication;
+                GameStateManager.Instance.GameState = GAME_STATE.Navigating;
+                PanelManager.Instance.m_commsPanel.NextInstruction();
+            }
+        }
+    }
 
     /// <summary>
     /// Button event to determine if the goal conditions for this panel have been met
@@ -50,5 +59,10 @@ public class SecurityPanel : Panel {
             GameStateManager.Instance.GameState = GAME_STATE.Navigating;
             SetUIActive(false);
         }
+    }
+
+    private bool Completed()
+    {
+        return false;
     }
 }

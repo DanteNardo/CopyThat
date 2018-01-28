@@ -34,6 +34,35 @@ public class CommsPanel : MonoBehaviour
                 sliders[1].value,
                 sliders[2].value);
             DistortionManager.Instance.DistortTransmission(m_instructions[m_currentInstruction]);
+            SetNewTarget();
+        }
+    }
+
+    public void NextInstruction()
+    {
+        m_currentInstruction++;
+        SetNewTarget();
+    }
+
+    private void SetNewTarget()
+    {
+        switch (m_currentInstruction)
+        {
+            case 0:
+                GameStateManager.Instance.TargetState = GAME_STATE.Security;
+                break;
+            case 1:
+                GameStateManager.Instance.TargetState = GAME_STATE.Engineering;
+                break;
+            case 2:
+                GameStateManager.Instance.TargetState = GAME_STATE.Flight;
+                break;
+            case 3:
+                GameStateManager.Instance.AppState = APP_STATE.Won;
+                break;
+            default:
+                Debug.Log("This should never happen.");
+                break;
         }
     }
 
