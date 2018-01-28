@@ -87,4 +87,9 @@ public class MapLogic : Module {
 
         // The other Quads
     }
+
+    private void OnDisable()
+    {
+        thisPos.localPosition = new Vector2(63, 7);
+    }
 }
