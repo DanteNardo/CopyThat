@@ -13,7 +13,6 @@ public class CommsPanel : MonoBehaviour
     public RawSliderBehavior m_slider1;
     public RawSliderBehavior m_slider2;
     public RawSliderBehavior m_slider3;
-    public SwitchBehavior m_button;
 
     public List<AudioClip> m_instructions;
     private int m_currentInstruction = 0;
