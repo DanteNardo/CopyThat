@@ -10,6 +10,7 @@ public class SecurityPanel : Panel {
     public string usernameGoal = "admin873";
     public string passwordGoal = "gnortsmra";
 
+    private bool completed = false;
     private GameObject usernameInput;
     private GameObject passwordInput;
 
@@ -39,7 +40,7 @@ public class SecurityPanel : Panel {
         // Check to see if we are done if we are target
         if (GameStateManager.Instance.TargetState == GAME_STATE.Security)
         {
-            if (Completed())
+            if (completed)
             {
                 GameStateManager.Instance.TargetState = GAME_STATE.Communication;
                 GameStateManager.Instance.GameState = GAME_STATE.Navigating;
@@ -57,12 +58,7 @@ public class SecurityPanel : Panel {
             && passwordInput.GetComponent<InputField>().text.ToLower() == passwordGoal)
         {
             GameStateManager.Instance.GameState = GAME_STATE.Navigating;
-            SetUIActive(false);
+            completed = true;
         }
-    }
-
-    private bool Completed()
-    {
-        return false;
     }
 }

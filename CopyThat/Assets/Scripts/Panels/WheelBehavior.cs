@@ -40,12 +40,13 @@ public class WheelBehavior : Module
         }
         else
         {
-            currentState = controlState.off;
+            //currentState = controlState.off;
         }
     }
 
     private void OnMouseDown()
     {
+        Debug.DrawRay(transform.position, Input.mousePosition - transform.position);
         RaycastHit2D hit = Physics2D.Raycast(Camera.main.ScreenToWorldPoint(Input.mousePosition), transform.position - Input.mousePosition);
         initialClickAngle = Vector2.SignedAngle(transform.position, Camera.main.ScreenToWorldPoint(Input.mousePosition) - transform.position);
         initialWheelClickAngle = transform.rotation.eulerAngles.z;
@@ -53,7 +54,6 @@ public class WheelBehavior : Module
     
     private void OnMouseDrag()
     {
-        Debug.DrawRay(transform.position, Camera.main.ScreenToWorldPoint(Input.mousePosition) - transform.position);
         transform.rotation = Quaternion.Euler(0, 0,
             Vector2.SignedAngle(transform.position, Camera.main.ScreenToWorldPoint(Input.mousePosition) - transform.position)
                 - initialClickAngle + initialWheelClickAngle);
