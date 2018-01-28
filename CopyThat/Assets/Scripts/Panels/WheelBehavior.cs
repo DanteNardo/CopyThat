@@ -27,7 +27,21 @@ public class WheelBehavior : Module
     //Update is called once per frame
     void Update()
     {
+        Debug.Log("BNJKAB" + GetComponent<RectTransform>().rotation.eulerAngles.z);
 
+        if ((maxGoalAngle >= minGoalAngle
+                && GetComponent<RectTransform>().rotation.eulerAngles.z <= maxGoalAngle
+                && GetComponent<RectTransform>().rotation.eulerAngles.z >= minGoalAngle)
+            || (maxGoalAngle < minGoalAngle
+                && GetComponent<RectTransform>().rotation.eulerAngles.z >= maxGoalAngle
+                && GetComponent<RectTransform>().rotation.eulerAngles.z <= minGoalAngle))
+        {
+            currentState = controlState.on;
+        }
+        else
+        {
+            currentState = controlState.off;
+        }
     }
 
     private void OnMouseDown()
@@ -44,19 +58,6 @@ public class WheelBehavior : Module
             Vector2.SignedAngle(transform.position, Camera.main.ScreenToWorldPoint(Input.mousePosition) - transform.position)
                 - initialClickAngle + initialWheelClickAngle);
 
-        if ((maxGoalAngle >= minGoalAngle
-                && transform.rotation.eulerAngles.z <= maxGoalAngle
-                && transform.rotation.eulerAngles.z >= minGoalAngle)
-            || (maxGoalAngle < minGoalAngle
-                && transform.rotation.eulerAngles.z >= maxGoalAngle
-                && transform.rotation.eulerAngles.z <= minGoalAngle))
-        {
-            currentState = controlState.on;
-        }
-        else
-        {
-            currentState = controlState.off;
-        }
     }
 
     /// <summary>
