@@ -14,7 +14,7 @@ public class RawSliderBehavior : Module
     float arPos;
     Vector3 screenPoint;
     Vector3 offset;
-    public float testReturn;
+    public float sliderReturn;
 
     // Use this for initialization
     void Start()
@@ -54,7 +54,7 @@ public class RawSliderBehavior : Module
         }
 
         // Checks where arrow is and sets state
-        testReturn = RawSliderValue();
+        sliderReturn = RawSliderValue();
 
     }
 

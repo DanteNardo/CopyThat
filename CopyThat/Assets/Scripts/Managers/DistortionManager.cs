@@ -6,7 +6,6 @@
 /// Purpose: A Singleton that handles all of the game's audio and text distortion.
 /// </summary>
 [RequireComponent(typeof(AudioDistortion))]
-[RequireComponent(typeof(TextDistortion))]
 public class DistortionManager : MonoBehaviour
 {
     #region Distortion Manager Members
@@ -15,18 +14,17 @@ public class DistortionManager : MonoBehaviour
     private Distortion m_distortion;
 
     private AudioDistortion m_audioDistorter;
-    private TextDistortion m_textDistorter;
     public AudioDistortion AudioDistorter { get { return m_audioDistorter; } }
-    public TextDistortion TextDistorter { get { return m_textDistorter; } }
-
     public AudioClip m_currentAudio;
-    private string m_currentText;
+
+    private float randMod1 = 1;
+    private float randMod2 = 1;
+    private float randMod3 = 1;
 
     #endregion
 
     #region Distortion Manager Methods
-
-    // Create a singleton
+    
     private void Awake()
     {
         if (Instance != null)
@@ -39,24 +37,20 @@ public class DistortionManager : MonoBehaviour
 
         m_distortion = new Distortion();
         m_audioDistorter = GetComponent<AudioDistortion>();
-        m_textDistorter = GetComponent<TextDistortion>();
         m_audioDistorter.SetDistortion(m_distortion);
-        m_textDistorter.SetDistortion(m_distortion);
     }
 
-    private void Update()
+    private void Start()
     {
-        if (Input.anyKeyDown)
-        {
-            DistortTransmission(m_currentAudio, "text");
-        }
+        randMod1 = Random.Range(-2.0f, 2.0f);
+        randMod2 = Random.Range(-2.0f, 2.0f);
+        randMod3 = Random.Range(-2.0f, 2.0f);
     }
-        
-    public void DistortTransmission(AudioClip audio, string text)
+
+    public void DistortTransmission(AudioClip audio)
     {
-        m_distortion.CalculateDistortion((int)audio.length);
+        m_distortion.CalculateDistortion((int)audio.length + 1);
         DistortAudio(audio);
-        DistortText(text);
     }
 
     private void DistortAudio(AudioClip audio)
@@ -65,15 +59,9 @@ public class DistortionManager : MonoBehaviour
         m_audioDistorter.DistortAudio(audio);
     }
 
-    private void DistortText(string text)
+    public void SendDistortionMods(float mod1, float mod2, float mod3)
     {
-        m_currentText = text;
-        //m_textDistorter.DistortText(text);
-    }
-
-    public string GetText()
-    {
-        return m_textDistorter.GetText();
+        m_distortion.SetMod(mod1 * randMod1  + mod2 * randMod2 + mod3 * randMod3);
     }
 
     #endregion

@@ -14,10 +14,12 @@ public class AudioDistortion : MonoBehaviour
 
     public AudioSource m_audioPlayer;
     public AudioSource m_staticPlayer;
+    //public AudioSource m_beepPlayer;
     private AudioDistortionFilter m_distortionFilter;
     private Distortion m_distortion;
 
-    private AudioClip m_beep;
+    public bool Distorting { get; set; }
+
     private const float MinStatic = 0.0f;
     private const float MaxStatic = 0.5f;
 
@@ -29,6 +31,7 @@ public class AudioDistortion : MonoBehaviour
     {
         m_distortionFilter = GetComponent<AudioDistortionFilter>();
         m_distortionFilter.distortionLevel = 0;
+        Distorting = false;
     }
 
     public void SetDistortion(Distortion distortion)
@@ -52,23 +55,27 @@ public class AudioDistortion : MonoBehaviour
         float nextAudio = m_distortion.WaveStrengthDistortion[i];
         m_staticPlayer.Play();
         m_audioPlayer.Play();
+        Distorting = true;
 
         // Distort while the index (which is increased at the rate of 1/s) is less than length of audio
         while (i < m_distortion.Length)
         {
             t += Time.deltaTime;
+
+            m_staticPlayer.volume = Mathf.Lerp(staticVolume, nextStatic, t);
+            m_audioPlayer.volume = Mathf.Lerp(audioVolume, nextAudio, t);
+
             if (t > 1.0f)
             {
                 staticVolume = nextStatic;
                 audioVolume = nextAudio;
                 nextStatic = Mathf.Clamp(1 - m_distortion.WaveStrengthDistortion[i], MinStatic, MaxStatic);
                 nextAudio = m_distortion.WaveStrengthDistortion[i];
+
                 t = 0.0f;
                 i++;
             }
 
-            m_staticPlayer.volume = Mathf.Lerp(staticVolume, nextStatic, t);
-            m_audioPlayer.volume = Mathf.Lerp(audioVolume, nextAudio, t);
             yield return null;
         }
 
@@ -76,6 +83,7 @@ public class AudioDistortion : MonoBehaviour
         m_audioPlayer.volume = 1.0f;
         m_staticPlayer.Stop();
         m_audioPlayer.Stop();
+        Distorting = false;
 
         yield break;
     }

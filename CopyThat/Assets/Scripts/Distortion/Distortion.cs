@@ -17,6 +17,8 @@ public class Distortion
     private List<float> m_beepDistortion;           // Used to determine when to beep and for how long
     private List<float> m_waveStrengthDistortion;   // Used to determine the overall strength of the signal
 
+    private float m_mod = 0.0f;
+
     // Properties for getting
     public float Length { get { return m_length; } }
     public List<float> RadioDistortion { get { return m_radioDistortion; } }
@@ -98,6 +100,7 @@ public class Distortion
                 // Determine random value and increase iter (chance of beep)
                 r = Random.Range(0, 101);
                 r += iter;
+                iter += iter;
             }
 
         }
@@ -112,9 +115,20 @@ public class Distortion
         float pos = Random.Range(0.0f, 2 * Mathf.PI);
         for (int i = 0; i < m_length; i++)
         {
-            m_waveStrengthDistortion.Add(Mathf.Clamp(Mathf.Sin(pos), 0.2f, 1.0f));
+            m_waveStrengthDistortion.Add(Mathf.Clamp(Mathf.Sin(pos) + m_mod, 0.2f, 1.0f));
             pos += m_waveIter;
         }
+    }
+
+    /// <summary>
+    /// Sets all of the modifying variables for the comms station's randomness.
+    /// </summary>
+    /// <param name="mod1"></param>
+    /// <param name="mod2"></param>
+    /// <param name="mod3"></param>
+    public void SetMod(float mod)
+    {
+        m_mod = mod;
     }
 
     #endregion
