@@ -28,6 +28,7 @@ public class Player : MonoBehaviour
     [HideInInspector]
     public Vector3 velocity;
 
+    public LayerMask panelCollisionMask; 
 
     // Private Attributes 
 
@@ -84,7 +85,7 @@ public class Player : MonoBehaviour
 
         if(input.GetSubmitDown())
         {
-            Debug.Log("Submit Pressed"); 
+            //Debug.Log("Submit Pressed"); 
         }
         
 
@@ -285,16 +286,23 @@ public class Player : MonoBehaviour
         spriteReference.flipX = !spriteReference.flipX; 
     }
 
-    // Collision 2D functions 
-	void OnCollisionEnter2D(Collision2D coll)
-	{
-        // TODO check tags if colliding with something specfic
-	}
-
-    void OnCollisionStay2D(Collision2D coll)
+    private void OnTriggerStay2D(Collider2D collision)
     {
-
+        BridgePanelController panel = collision.gameObject.GetComponent<BridgePanelController>(); 
+        if(panel != null)
+        {
+            if(Input.GetButtonDown("Submit"))
+            {
+                Debug.Log("YES!!!!!!!");
+            }
+            
+        }
     }
-	
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        
+    }
+
 }
 
