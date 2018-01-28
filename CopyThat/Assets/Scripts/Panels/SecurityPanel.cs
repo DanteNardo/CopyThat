@@ -7,8 +7,8 @@ using UnityEngine.UI;
 public class SecurityPanel : Panel {
 
     // MEMBERS
-    public string usernameGoal = "IAmTheCaptain";
-    public string passwordGoal = "Password123";
+    public string usernameGoal = "admin873";
+    public string passwordGoal = "gnortsmra";
 
     private GameObject usernameInput;
     private GameObject passwordInput;
@@ -44,8 +44,8 @@ public class SecurityPanel : Panel {
     /// </summary>
     public void TestForActivation()
     {
-        if (usernameInput.GetComponent<InputField>().text == usernameGoal
-            && passwordInput.GetComponent<InputField>().text == passwordGoal)
+        if (usernameInput.GetComponent<InputField>().text.ToLower() == usernameGoal
+            && passwordInput.GetComponent<InputField>().text.ToLower() == passwordGoal)
         {
             GameStateManager.Instance.GameState = GAME_STATE.Navigating;
             SetUIActive(false);
