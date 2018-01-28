@@ -10,11 +10,7 @@ public class SwitchBehavior : Module {
 	// Use this for initialization
 	void Start ()
 	{
-		int RNG = Random.Range(0, 1);
-		if (RNG == 0)
-		{ currentState = controlState.off; }
-		else
-		{ currentState = controlState.on; }
+		 currentState = controlState.off; 
 	}
  
 	
