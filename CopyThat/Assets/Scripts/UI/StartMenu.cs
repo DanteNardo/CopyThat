@@ -6,7 +6,9 @@ using UnityEngine.UI;
 public class StartMenu : MonoBehaviour {
 
     Button[] buttons;
-    Image background; 
+    Image background;
+    Image title;
+    public Sprite credits;
 
     public void Start()
     {
@@ -14,7 +16,8 @@ public class StartMenu : MonoBehaviour {
         buttons[0].onClick.AddListener(() => PlayButtonPressed());
         buttons[1].onClick.AddListener(() => CreditsButtonPressed());
         buttons[2].onClick.AddListener(() => ExitButtonPressed());
-        background = GetComponentInChildren<Image>(); 
+        background = GetComponentsInChildren<Image>()[0];
+        title = GetComponentsInChildren<Image>()[1];
     }
 
     public void PlayButtonPressed () {
@@ -26,8 +29,8 @@ public class StartMenu : MonoBehaviour {
 
     public void CreditsButtonPressed()
     {
-        Debug.Log("Credits!"); 
-        // TODO Display Text for credits here 
+        Debug.Log("Credits!");
+        title.sprite = credits;
     }
 
     public void ExitButtonPressed()
