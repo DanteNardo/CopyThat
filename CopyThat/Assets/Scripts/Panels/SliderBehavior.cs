@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class SliderBehavior : Module
 {
-    public controlState currentState;
+    //public controlState currentState;
     private float MinMin;
     private float MinMed;
     private float MedMax;
