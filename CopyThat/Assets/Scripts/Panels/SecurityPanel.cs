@@ -21,6 +21,7 @@ public class SecurityPanel : Panel {
     // Use this for initialization
     void Start () {
         SetUIActive(false);
+        completed = false;
         
         for (int i = 0; i < panelUI.transform.childCount; i++)
         {
@@ -45,6 +46,7 @@ public class SecurityPanel : Panel {
                 PanelManager.Instance.CloseSecurity();
                 GameStateManager.Instance.TargetState = GAME_STATE.Communication;
                 PanelManager.Instance.m_commsPanel.NextInstruction();
+                completed = false;
             }
         }
     }
@@ -59,6 +61,7 @@ public class SecurityPanel : Panel {
         {
             passwordInput.GetComponent<InputField>().text = "";
         }
+        completed = false;
     }
 
     /// <summary>
