@@ -41,6 +41,23 @@ public class GameStateManager : Singleton<GameStateManager>
     public delegate void OnVariableChangeDelegate(GAME_STATE pState);
     public event OnVariableChangeDelegate OnStateChange;
 
+    private GAME_STATE targetState = GAME_STATE.Communication;
+    public GAME_STATE TargetState
+    {
+        get { return targetState; }
+        set
+        {
+            if (targetState == value) return;
+            targetState = value;
+            if (OnTargetStateChange != null)
+                OnTargetStateChange(targetState);
+        }
+    }
+    public delegate void OnTargetChangeDelegate(GAME_STATE pState);
+    public event OnTargetChangeDelegate OnTargetStateChange;
+
+
+
     private APP_STATE appState = APP_STATE.Start;
     public APP_STATE AppState
     {
