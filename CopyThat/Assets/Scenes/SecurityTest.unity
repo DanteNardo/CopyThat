@@ -448,6 +448,16 @@ Prefab:
       propertyPath: m_LocalScale.z
       value: 2.7783296
       objectReference: {fileID: 0}
+    - target: {fileID: 114001942584076350, guid: 90079c58fdf702e4c8a172ae087f2c36,
+        type: 2}
+      propertyPath: minGoalAngle
+      value: 226
+      objectReference: {fileID: 0}
+    - target: {fileID: 114001942584076350, guid: 90079c58fdf702e4c8a172ae087f2c36,
+        type: 2}
+      propertyPath: maxGoalAngle
+      value: 228.9
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 90079c58fdf702e4c8a172ae087f2c36, type: 2}
   m_IsPrefabParent: 0
