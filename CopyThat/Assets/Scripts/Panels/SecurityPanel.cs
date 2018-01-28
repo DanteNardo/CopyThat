@@ -49,6 +49,18 @@ public class SecurityPanel : Panel {
         }
     }
 
+    private void OnDisable()
+    {
+        if (usernameInput != null)
+        {
+            usernameInput.GetComponent<InputField>().text = "";
+        }
+        if (passwordInput != null)
+        {
+            passwordInput.GetComponent<InputField>().text = "";
+        }
+    }
+
     /// <summary>
     /// Button event to determine if the goal conditions for this panel have been met
     /// </summary>

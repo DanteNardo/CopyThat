@@ -14,7 +14,7 @@ public class CommsPanel : MonoBehaviour
     private Slider[] sliders; 
 
     public List<AudioClip> m_instructions;
-    private int m_currentInstruction = 0;
+    public int m_currentInstruction = 0;
 
     #endregion
 

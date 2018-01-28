@@ -119,7 +119,12 @@ public class GameStateManager : Singleton<GameStateManager>
         engineeringComplete = false;
         securityComplete = false; 
         appState =  APP_STATE.Playing;
-        state = GAME_STATE.Navigating; 
+        state = GAME_STATE.Navigating;
+        TargetState = GAME_STATE.Communication;
+        PanelManager.Instance.m_commsPanel.m_currentInstruction= 0;
+        PanelManager.Instance.hasAccessSec = false;
+        PanelManager.Instance.hasAccessEng = false;
+        PanelManager.Instance.hasAccessFlight = false;
     }
 
     

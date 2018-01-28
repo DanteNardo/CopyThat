@@ -54,7 +54,8 @@ public class PanelManager : Singleton<PanelManager>
         CloseStart();
         CloseGameOver();
         CloseGameWon();
-        OpenStart(); 
+        OpenStart();
+        //GameStateManager.Instance.TargetState = GAME_STATE.Security; 
     }
 
     public void OpenComs()

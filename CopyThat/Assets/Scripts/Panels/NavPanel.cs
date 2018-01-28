@@ -42,6 +42,9 @@ public class NavPanel : Panel
                     Debug.Log("You Win!");
                     GameStateManager.Instance.TargetState = GAME_STATE.Communication;
                     GameStateManager.Instance.GameState = GAME_STATE.Navigating;
+                    GetComponentInParent<PanelManager>().CloseFlight();
+                    GetComponentInParent<PanelManager>().OpenGameWon() ;
+
                     GameStateManager.Instance.AppState = APP_STATE.Won;
                 }
                 else
