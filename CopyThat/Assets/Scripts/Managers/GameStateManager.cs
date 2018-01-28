@@ -25,6 +25,7 @@ public class GameStateManager : Singleton<GameStateManager>
 
     // Global Variables and Functions here 
     private const float GAME_TIME_LIMIT = 600;
+    //private const float GAME_TIME_LIMIT = 5;
 
     private GAME_STATE state = GAME_STATE.Navigating;
     public GAME_STATE GameState

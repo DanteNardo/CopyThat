@@ -43,15 +43,24 @@ public class NavPanel : Panel
                     GameStateManager.Instance.TargetState = GAME_STATE.Communication;
                     GameStateManager.Instance.GameState = GAME_STATE.Navigating;
                     GetComponentInParent<PanelManager>().CloseFlight();
+                    GetComponentInParent<PanelManager>().CloseGameOver();
+                    GetComponentInParent<PanelManager>().CloseGameWon(); 
                     GetComponentInParent<PanelManager>().OpenGameWon() ;
 
-                    GameStateManager.Instance.AppState = APP_STATE.Won;
+                    GameStateManager.Instance.AppState = APP_STATE.Start;
                 }
                 else
                 {
                     // Set to LoseState
                     Debug.Log("You Lose!");
-                    GameStateManager.Instance.AppState = APP_STATE.Lost;
+                    GameStateManager.Instance.TargetState = GAME_STATE.Communication;
+                    GameStateManager.Instance.GameState = GAME_STATE.Navigating;
+                    GetComponentInParent<PanelManager>().CloseFlight();
+                    GetComponentInParent<PanelManager>().CloseGameOver();
+                    GetComponentInParent<PanelManager>().CloseGameWon();
+                    GetComponentInParent<PanelManager>().OpenGameOver();
+
+                    GameStateManager.Instance.AppState = APP_STATE.Start;
                 }
             }
         }

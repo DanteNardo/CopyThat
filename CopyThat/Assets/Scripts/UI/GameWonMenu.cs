@@ -3,38 +3,34 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI; 
 
-public class GameOverMenu : MonoBehaviour {
+public class GameWonMenu : MonoBehaviour {
 
     Button[] buttons;
     Image background;
 
     public void Start()
     {
-        
-    }
-
-    private void OnEnable()
-    {
         buttons = GetComponentsInChildren<Button>();
         buttons[0].onClick.AddListener(() => PlayAgainButtonPressed());
         buttons[1].onClick.AddListener(() => ExitButtonPressed());
         background = GetComponentInChildren<Image>();
-        //GameStateManager.Instance.AppState = APP_STATE.Start;
+    }
+
+    private void OnEnable()
+    {
+        GameStateManager.Instance.AppState = APP_STATE.Start; 
     }
 
     private void OnDisable()
     {
-        //GameStateManager.Instance.AppState = APP_STATE.Playing;
+        GameStateManager.Instance.AppState = APP_STATE.Playing; 
     }
 
     public void PlayAgainButtonPressed()
     {
         Debug.Log("Play Again");
-        GetComponentInParent<PanelManager>().CloseGameOver();
-        GetComponentInParent<PanelManager>().CloseGameWon();
         GameStateManager.Instance.RestartGame(); 
-        //HideMenu();
-
+        HideMenu();
     }
 
     public void ExitButtonPressed()

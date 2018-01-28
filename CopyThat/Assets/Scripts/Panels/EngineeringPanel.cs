@@ -47,6 +47,13 @@ public class EngineeringPanel : MonoBehaviour {
         leverPressed = true; 
     }
 
+    private void OnDisable()
+    {
+        leverPressed = false;
+        buttonOnePressCount = 0;
+        statusColor.color = Color.red; 
+    }
+
     void PlayButtonSound()
     {
 
