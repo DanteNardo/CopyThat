@@ -75,4 +75,10 @@ public class SecurityPanel : Panel {
             completed = true;
         }
     }
+
+    public void UppercaseInput()
+    {
+        usernameInput.GetComponent<InputField>().text
+            = usernameInput.GetComponent<InputField>().text.ToUpper();
+    }
 }
