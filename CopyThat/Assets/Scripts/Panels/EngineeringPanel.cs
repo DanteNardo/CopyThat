@@ -1,33 +1,50 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI; 
 
-public class EngineeringPanel : Panel {
+public class EngineeringPanel : MonoBehaviour {
 
     // MEMBERS / FIELDS
-    #region Members
-    private List<GameObject> panelModules;
-    #endregion
+    Button[] buttons;
 
 
-    // PROPERTIES
-    #region Properties
-
-    #endregion
-
+    int buttonOnePressCount = 0;
+    bool leverPressed = false; 
 
     // METHODS
     // Use this for initialization
     void Start ()
     {
-        // Add all modules that are a child of this panel to the list of modules
-        for (int i = 0; i < transform.childCount; i++)
+        buttons = GetComponentsInChildren<Button>();
+        for (int i = 0; i < buttons.Length; i++)
         {
-            if (transform.GetChild(i).GetComponent<Module>() != null)
+            if (i == 0)
             {
-
+                buttons[i].onClick.AddListener(() => IncrementButtonOnePressed());
             }
+            else if(i == buttons.Length-1)
+            {
+                buttons[i].onClick.AddListener(() => IncrementButtonOnePressed());
+            }
+            buttons[i].onClick.AddListener(() => PlayButtonSound());
+
         }
+    }
+
+    void IncrementButtonOnePressed()
+    {
+        buttonOnePressCount++; 
+    }
+
+    void LeverPress()
+    {
+        leverPressed = true; 
+    }
+
+    void PlayButtonSound()
+    {
+
     }
 	
 	// Update is called once per frame

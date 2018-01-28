@@ -62,11 +62,48 @@ public class GameStateManager : Singleton<GameStateManager>
         }
     }
 
+
+    // Room conditions 
+    private bool securityComplete = false;
+    public bool SecurityComplete
+    {
+        get { return securityComplete; }
+        set
+        {
+            securityComplete = value;
+        }
+    }
+
+    private bool engineeringComplete = false;
+    public bool EngineeringComplete
+    {
+        get { return engineeringComplete; }
+        set
+        {
+            engineeringComplete = value;
+        }
+    }
+
+    private bool flightComplete = false;
+    public bool FlightComplete
+    {
+        get { return flightComplete; }
+        set
+        {
+            flightComplete = value;
+        }
+    }
+
     public void RestartGame()
     {
         gameTimer = GAME_TIME_LIMIT;
+        flightComplete = false;
+        engineeringComplete = false;
+        securityComplete = false; 
         appState =  APP_STATE.Playing;
         state = GAME_STATE.Navigating; 
     }
+
+    
 
 }

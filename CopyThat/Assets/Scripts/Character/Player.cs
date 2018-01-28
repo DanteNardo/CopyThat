@@ -75,6 +75,12 @@ public class Player : MonoBehaviour
     // Update is called once per frame
     private void Update()
     {
+        // TODO check if game is won or lost 
+
+        if(GameStateManager.Instance.GameState != GAME_STATE.Navigating)
+        {
+            return; 
+        }
 
         if(input.GetSubmitDown())
         {

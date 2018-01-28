@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI; 
 
 /// <summary>
 /// Author: Dante Nardo
@@ -10,9 +11,7 @@ public class CommsPanel : MonoBehaviour
 {
     #region Comms Panel Members
 
-    public RawSliderBehavior m_slider1;
-    public RawSliderBehavior m_slider2;
-    public RawSliderBehavior m_slider3;
+    private Slider[] sliders; 
 
     public List<AudioClip> m_instructions;
     private int m_currentInstruction = 0;
@@ -21,14 +20,19 @@ public class CommsPanel : MonoBehaviour
 
     #region Comms Panel Methods
 
+    private void Start()
+    {
+        sliders = GetComponentsInChildren<Slider>(); 
+    }
+
     public void SendTransmission()
     {
         if (DistortionManager.Instance.AudioDistorter.Distorting == false)
         {
             DistortionManager.Instance.SendDistortionMods(
-                m_slider1.sliderReturn,
-                m_slider2.sliderReturn,
-                m_slider3.sliderReturn);
+                sliders[0].value,
+                sliders[1].value,
+                sliders[2].value);
             DistortionManager.Instance.DistortTransmission(m_instructions[m_currentInstruction]);
         }
     }
