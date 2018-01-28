@@ -23,7 +23,7 @@ public class GameStateManager : Singleton<GameStateManager>
 {
     protected GameStateManager () { } // // guarantee this will be always a singleton only - can't use the constructor!
 
-    // Global vars here 
+    // Global Variables and Functions here 
     private const float GAME_TIME_LIMIT = 600;
 
     private GAME_STATE state = GAME_STATE.Navigating;

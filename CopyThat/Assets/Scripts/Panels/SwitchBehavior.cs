@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class SwitchBehavior : Module {
 
+	//public Camera camera;
 	//public controlState currentState;
 
 	// Use this for initialization

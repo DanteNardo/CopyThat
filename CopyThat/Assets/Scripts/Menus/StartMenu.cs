@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class MenuButtonManager : MonoBehaviour {
+public class StartMenu : MonoBehaviour {
 
     Button[] buttons;
     Image background; 
@@ -16,7 +16,6 @@ public class MenuButtonManager : MonoBehaviour {
         buttons[2].onClick.AddListener(() => ExitButtonPressed());
         background = GetComponentInChildren<Image>(); 
     }
-
 
     public void PlayButtonPressed () {
         Debug.Log("Play"); 

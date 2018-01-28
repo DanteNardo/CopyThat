@@ -22,7 +22,7 @@ public abstract class Module : MonoBehaviour
 	protected int height;
     public controlState currentState;
 
-	public int Width { get; set; }
+    public int Width { get; set; }
    
 
 	public int Height { get; set; }
