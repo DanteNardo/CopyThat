@@ -9,6 +9,8 @@ public class MapCrossLogic : MonoBehaviour {
     public GameObject cursor;
     RectTransform myPos;
     RectTransform cursorPos;
+   
+
 	// Use this for initialization
 	void Start ()
     {

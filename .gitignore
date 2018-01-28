@@ -4,3 +4,4 @@ CopyThat/.vs/
 *.csproj
 *.sln
 /CopyThat/Assets/Prefabs.meta
+/.vs
