@@ -69,4 +69,9 @@ public class NavPanel : Panel
     {
         return false;
     }
+
+    private void OnDisable()
+    {
+        isPressed = false;
+    }
 }

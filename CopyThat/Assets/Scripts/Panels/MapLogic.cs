@@ -95,5 +95,6 @@ public class MapLogic : Module {
     private void OnDisable()
     {
         thisPos.localPosition = new Vector2(63, 7);
+
     }
 }
