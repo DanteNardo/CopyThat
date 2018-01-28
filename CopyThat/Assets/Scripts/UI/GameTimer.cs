@@ -46,7 +46,9 @@ public class GameTimer : MonoBehaviour {
     {
         int minutes = Mathf.FloorToInt(GameStateManager.Instance.GameTimer / 60F);
         int seconds = Mathf.FloorToInt(GameStateManager.Instance.GameTimer - minutes * 60);
-        string formattedTime = string.Format("{0:0}:{1:00}", minutes, seconds);
+        int milliseconds = Mathf.FloorToInt((GameStateManager.Instance.GameTimer - minutes * 60) * 100 - (seconds * 100));
+        Debug.Log(GameStateManager.Instance.GameTimer);
+        string formattedTime = string.Format("{0:0}:{1:00}:{2:00}", minutes, seconds, milliseconds);
         textElem.text = formattedTime; 
     }
 }
