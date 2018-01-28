@@ -14,6 +14,8 @@ public class LeverImageSwitch : MonoBehaviour, IPointerDownHandler
     private Image image;
     private Button button;
 
+    EngineeringPanel parentPanel; 
+
     public void OnPointerDown(PointerEventData eventData)
     {
         switchImage(); 
@@ -24,11 +26,13 @@ public class LeverImageSwitch : MonoBehaviour, IPointerDownHandler
         rect = GetComponent<RectTransform>(); 
         image = GetComponent<Image>();
         button = GetComponent<Button>();
+        parentPanel = GetComponentInParent<EngineeringPanel>(); 
         initalImage = image.sprite;
     }
 
     void switchImage()
     {
+        parentPanel.LeverPress(); 
         if (image.sprite == pressedImage)
         {
             rect.SetPositionAndRotation(new Vector3(rect.position.x + 25, rect.position.y - 200, rect.position.z), rect.rotation);

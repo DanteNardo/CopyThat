@@ -9,6 +9,9 @@ public class Player : MonoBehaviour
 {
 
     // Public Attributes 
+
+    public PanelManager panelManager; 
+
     public float maxJumpHeight = 3.5f;
     public float minJumpHeight = 1; 
     public float timeToJumpApex = 0.4f;
@@ -293,9 +296,41 @@ public class Player : MonoBehaviour
         {
             if(Input.GetButtonDown("Submit"))
             {
-                Debug.Log("YES!!!!!!!");
+                switch(panel.bridgePanelType)
+                {
+                    case BridgePanelController.PANEL_TYPE.COMMS:
+                        panelManager.OpenComs();
+                        break; 
+                    case BridgePanelController.PANEL_TYPE.ENG:
+                        panelManager.OpenEng(); 
+                        break;
+                    case BridgePanelController.PANEL_TYPE.FLIGHT:
+                        panelManager.OpenFlight(); 
+                        break;
+                    case BridgePanelController.PANEL_TYPE.SECURITY:
+                        panelManager.OpenSecurity(); 
+                        break;
+                }
             }
-            
+
+            if (Input.GetButtonDown("Cancel"))
+            {
+                switch (panel.bridgePanelType)
+                {
+                    case BridgePanelController.PANEL_TYPE.COMMS:
+                        panelManager.CloseComs();
+                        break;
+                    case BridgePanelController.PANEL_TYPE.ENG:
+                        panelManager.CloseEng();
+                        break;
+                    case BridgePanelController.PANEL_TYPE.FLIGHT:
+                        panelManager.CloseFlight();
+                        break;
+                    case BridgePanelController.PANEL_TYPE.SECURITY:
+                        panelManager.CloseSecurity();
+                        break;
+                }
+            }
         }
     }
 
