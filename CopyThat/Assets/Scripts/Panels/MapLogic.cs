@@ -2,13 +2,15 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+[RequireComponent(typeof(AudioSource))]
+
 public class MapLogic : Module {
 
     public Vector2 min;
     public Vector2 max;
     public GameObject MapBackground;
-    RectTransform mapSize;
-    RectTransform thisPos;
+    private RectTransform mapSize;
+    private RectTransform thisPos;
 
     public GameObject LeftDivide;
     public GameObject MiddleDivide;
@@ -16,14 +18,15 @@ public class MapLogic : Module {
     public GameObject TopDivide;
     public GameObject BottomDivide;
 
+    private AudioSource moveSound;
 
-    RectTransform LeftDiv;
-    RectTransform MiddleDiv;
-    RectTransform RightDiv;
-    RectTransform TopDiv;
-    RectTransform BottomDiv;
+    private RectTransform LeftDiv;
+    private RectTransform MiddleDiv;
+    private RectTransform RightDiv;
+    private RectTransform TopDiv;
+    private RectTransform BottomDiv;
 
-    Vector2 cursorPos;
+    private Vector2 cursorPos;
 
 	// Use this for initialization
 	void Start ()
@@ -42,7 +45,7 @@ public class MapLogic : Module {
         min = new Vector2(mapCorners[0].x, mapCorners[0].y);
         max = new Vector2(mapCorners[3].x, mapCorners[0].y);
 
-
+        moveSound = GetComponent<AudioSource>();
 	}
 	
 	// Update is called once per frame
@@ -68,7 +71,8 @@ public class MapLogic : Module {
 
               ((Input.mousePosition.y - GlobalMin.y)
             / (GlobalMax.y - GlobalMin.y)) * (2 * mapSize.localScale.y) + mapSize.localPosition.y));
-        
+
+        moveSound.Play();
     }
     
     private void SetState()
