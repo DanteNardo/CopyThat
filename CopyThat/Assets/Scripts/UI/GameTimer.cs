@@ -21,9 +21,24 @@ public class GameTimer : MonoBehaviour {
 
     void UpdateGameTimer()
     {
+        
         if(GameStateManager.Instance.AppState == APP_STATE.Playing)
         {
-            GameStateManager.Instance.GameTimer -= Time.deltaTime; 
+            if (GameStateManager.Instance.GameTimer <= 1)
+            {
+                GameStateManager.Instance.AppState = APP_STATE.Lost;
+                PanelManager panelManager = GetComponentInParent<PanelManager>();
+                panelManager.CloseEng();
+                panelManager.CloseComs();
+                panelManager.CloseFlight();
+                panelManager.CloseSecurity(); 
+                panelManager.OpenGameOver(); 
+            }
+            else
+            {
+                GameStateManager.Instance.GameTimer -= Time.deltaTime;
+            }
+            
         }
     }
 

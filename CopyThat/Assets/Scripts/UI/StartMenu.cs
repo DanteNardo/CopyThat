@@ -20,6 +20,7 @@ public class StartMenu : MonoBehaviour {
     public void PlayButtonPressed () {
         Debug.Log("Play"); 
         GameStateManager.Instance.AppState = APP_STATE.Playing;
+        
         HideMenu(); 
 	}
 
@@ -42,7 +43,8 @@ public class StartMenu : MonoBehaviour {
         {
             b.gameObject.SetActive(false); 
         }
-        background.gameObject.SetActive(false); 
+        background.gameObject.SetActive(false);
+        GetComponentInParent<PanelManager>().CloseStart();
     }
 
 }

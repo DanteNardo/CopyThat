@@ -31,7 +31,8 @@ public class Player : MonoBehaviour
     [HideInInspector]
     public Vector3 velocity;
 
-    public LayerMask panelCollisionMask; 
+    public LayerMask panelCollisionMask;
+    public Transform startPos; 
 
     // Private Attributes 
 
@@ -53,7 +54,8 @@ public class Player : MonoBehaviour
 	private SpriteRenderer spriteReference;
 	private Color defaultColor;
 
-	// Gameplay
+    // Gameplay
+    BridgePanelController controlPanel; 
 
     private void Awake()
     {
@@ -79,18 +81,41 @@ public class Player : MonoBehaviour
     // Update is called once per frame
     private void Update()
     {
-        // TODO check if game is won or lost 
+        if (controlPanel != null)
+        {
+            checkPanels();
+        }
 
-        if(GameStateManager.Instance.GameState != GAME_STATE.Navigating)
+        // TODO check if game is won or lost 
+        if (GameStateManager.Instance.AppState != APP_STATE.Playing)
+        {
+            transform.position = startPos.position; 
+        }
+        
+        if (GameStateManager.Instance.GameState != GAME_STATE.Navigating)
         {
             return; 
         }
 
-        if(input.GetSubmitDown())
-        {
-            //Debug.Log("Submit Pressed"); 
-        }
+
+
         
+
+
+
+        
+         
+        
+
+
+
+
+
+
+
+
+
+
 
         if(controller.collisions.below)
         {
@@ -291,51 +316,68 @@ public class Player : MonoBehaviour
 
     private void OnTriggerStay2D(Collider2D collision)
     {
-        BridgePanelController panel = collision.gameObject.GetComponent<BridgePanelController>(); 
-        if(panel != null)
-        {
-            if(Input.GetButtonDown("Submit"))
-            {
-                switch(panel.bridgePanelType)
-                {
-                    case BridgePanelController.PANEL_TYPE.COMMS:
-                        panelManager.OpenComs();
-                        break; 
-                    case BridgePanelController.PANEL_TYPE.ENG:
-                        panelManager.OpenEng(); 
-                        break;
-                    case BridgePanelController.PANEL_TYPE.FLIGHT:
-                        panelManager.OpenFlight(); 
-                        break;
-                    case BridgePanelController.PANEL_TYPE.SECURITY:
-                        panelManager.OpenSecurity(); 
-                        break;
-                }
-            }
-
-            if (Input.GetButtonDown("Cancel"))
-            {
-                switch (panel.bridgePanelType)
-                {
-                    case BridgePanelController.PANEL_TYPE.COMMS:
-                        panelManager.CloseComs();
-                        break;
-                    case BridgePanelController.PANEL_TYPE.ENG:
-                        panelManager.CloseEng();
-                        break;
-                    case BridgePanelController.PANEL_TYPE.FLIGHT:
-                        panelManager.CloseFlight();
-                        break;
-                    case BridgePanelController.PANEL_TYPE.SECURITY:
-                        panelManager.CloseSecurity();
-                        break;
-                }
-            }
-        }
+        //checkPanels(collision); 
+        //BridgePanelController panel = collision.gameObject.GetComponent<BridgePanelController>();
+        //if (panel != null)
+        //{
+        //    controlPanel = panel;
+        //}
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
+            BridgePanelController panel = collision.gameObject.GetComponent<BridgePanelController>();
+            if (panel != null)
+            {
+                controlPanel = panel;
+            }
+     }
+
+    private void OnTriggerExit2D(Collider2D collision)
+    {
+        controlPanel = null; 
+    }
+
+    private void checkPanels()
+    {
+
+        if (Input.GetButtonDown("Submit"))
+        {
+            switch (controlPanel.bridgePanelType)
+            {
+                case BridgePanelController.PANEL_TYPE.COMMS:
+                    panelManager.OpenComs();
+                    break;
+                case BridgePanelController.PANEL_TYPE.ENG:
+                    panelManager.OpenEng();
+                    break;
+                case BridgePanelController.PANEL_TYPE.FLIGHT:
+                    panelManager.OpenFlight();
+                    break;
+                case BridgePanelController.PANEL_TYPE.SECURITY:
+                    panelManager.OpenSecurity();
+                    break;
+            }
+        }
+
+        if (Input.GetButtonDown("Cancel"))
+        {
+            switch (controlPanel.bridgePanelType)
+            {
+                case BridgePanelController.PANEL_TYPE.COMMS:
+                    panelManager.CloseComs();
+                    break;
+                case BridgePanelController.PANEL_TYPE.ENG:
+                    panelManager.CloseEng();
+                    break;
+                case BridgePanelController.PANEL_TYPE.FLIGHT:
+                    panelManager.CloseFlight();
+                    break;
+                case BridgePanelController.PANEL_TYPE.SECURITY:
+                    panelManager.CloseSecurity();
+                    break;
+            }
+        }
         
     }
 
