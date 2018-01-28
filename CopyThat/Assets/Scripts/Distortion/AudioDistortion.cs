@@ -3,7 +3,7 @@ using UnityEngine;
 
 /// <summary>
 /// Author: Dante Nardo
-/// Last Modified: 1/27/2018
+/// Last Modified: 1/28/2018
 /// Purpose: Controls the distortion of the audio being played.
 /// </summary>
 [RequireComponent(typeof(AudioSource))]
@@ -14,7 +14,6 @@ public class AudioDistortion : MonoBehaviour
 
     public AudioSource m_audioPlayer;
     public AudioSource m_staticPlayer;
-    //public AudioSource m_beepPlayer;
     private AudioDistortionFilter m_distortionFilter;
     private Distortion m_distortion;
 
@@ -86,6 +85,18 @@ public class AudioDistortion : MonoBehaviour
         Distorting = false;
 
         yield break;
+    }
+
+    public void StopAudio()
+    {
+        if (Distorting)
+        {
+            m_staticPlayer.volume = 0.5f;
+            m_audioPlayer.volume = 1.0f;
+            m_staticPlayer.Stop();
+            m_audioPlayer.Stop();
+            Distorting = false;
+        }
     }
 
     #endregion

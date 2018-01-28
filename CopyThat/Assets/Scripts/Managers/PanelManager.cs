@@ -96,6 +96,7 @@ public class PanelManager : Singleton<PanelManager>
 
     public void CloseComs()
     {
+        DistortionManager.Instance.AudioDistorter.StopAudio();
         GameStateManager.Instance.GameState = GAME_STATE.Navigating;
         comsObj.SetActive(false);
     }
