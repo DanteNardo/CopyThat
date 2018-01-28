@@ -69,8 +69,8 @@ public class GameStateManager : Singleton<GameStateManager>
         }
     }
 
-    //private float gameTimer = GAME_TIME_LIMIT;
-    private float gameTimer = 13.0f;
+    private float gameTimer = GAME_TIME_LIMIT;
+    //private float gameTimer = 13.0f;
     public float GameTimer
     {
         get { return gameTimer; }

@@ -13,7 +13,7 @@ public class PanelManager : Singleton<PanelManager>
     public EngineeringPanel m_engineeringPanel;
     public MapLogic m_flightPanel;
     public StartMenu m_startPanel;
-    public GameOverMenu m_gameOverPanel; 
+    public GameOverMenu m_gameOverPanel;
 
     private GameObject comsObj;
     private GameObject secObj;
@@ -21,6 +21,7 @@ public class PanelManager : Singleton<PanelManager>
     private GameObject flightObj;
     private GameObject startMenuObj;
     private GameObject gameOverMenuObj;
+    private GameObject gameWonObj; 
 
 
     // Panel Access 
@@ -42,7 +43,8 @@ public class PanelManager : Singleton<PanelManager>
         engObj = transform.GetChild(0).gameObject;
         flightObj = transform.GetChild(2).gameObject;
         startMenuObj = transform.GetChild(4).gameObject;
-        gameOverMenuObj = transform.GetChild(5).gameObject; 
+        gameOverMenuObj = transform.GetChild(5).gameObject;
+        gameWonObj = transform.GetChild(6).gameObject; 
 
 
         CloseComs();
@@ -51,6 +53,7 @@ public class PanelManager : Singleton<PanelManager>
         CloseFlight();
         CloseStart();
         CloseGameOver();
+        CloseGameWon();
         OpenStart(); 
     }
 
@@ -141,5 +144,14 @@ public class PanelManager : Singleton<PanelManager>
         gameOverMenuObj.SetActive(false); 
     }
 
+    public void OpenGameWon()
+    {
+        gameWonObj.SetActive(true); 
+    }
+
+    public void CloseGameWon()
+    {
+        gameWonObj.SetActive(false); 
+    }
     
 }

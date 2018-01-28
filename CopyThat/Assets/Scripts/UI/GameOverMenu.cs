@@ -37,5 +37,7 @@ public class GameOverMenu : MonoBehaviour {
             b.gameObject.SetActive(false);
         }
         background.gameObject.SetActive(false);
+        //GetComponentInParent<PanelManager>().CloseGameOver();
+        //GetComponentInParent<PanelManager>().CloseGameWon(); 
     }
 }

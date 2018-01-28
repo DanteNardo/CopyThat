@@ -59,6 +59,7 @@ public class CommsPanel : MonoBehaviour
                 break;
             case 3:
                 GameStateManager.Instance.AppState = APP_STATE.Won;
+                GetComponentInParent<PanelManager>().OpenGameWon(); 
                 break;
             default:
                 Debug.Log("This should never happen.");
