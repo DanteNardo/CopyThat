@@ -65,7 +65,7 @@ public class EngineeringPanel : MonoBehaviour {
         {
             if (Completed())
             {
-                PanelManager.Instance.CloseEng();
+                //PanelManager.Instance.CloseEng();
                 GameStateManager.Instance.TargetState = GAME_STATE.Communication;
                 PanelManager.Instance.m_commsPanel.NextInstruction();
             }

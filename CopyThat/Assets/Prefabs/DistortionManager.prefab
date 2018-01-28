@@ -228,7 +228,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 154276f08ce67e34a9b3cfe7d4578905, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_currentAudio: {fileID: 8300000, guid: 9c59048e1f524f04ba5d2d785f55822f, type: 3}
+  m_currentAudio: {fileID: 8300000, guid: ef9e9f5e2fb8dcc46bb58bad4bc4d7ab, type: 3}
 --- !u!170 &170105062314540530
 AudioDistortionFilter:
   m_ObjectHideFlags: 1
