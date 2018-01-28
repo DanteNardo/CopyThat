@@ -12,11 +12,21 @@ public class PanelManager : Singleton<PanelManager>
     public SecurityPanel m_securityPanel;
     public EngineeringPanel m_engineeringPanel;
     public MapLogic m_flightPanel;
+    public StartMenu m_startPanel;
+    public GameOverMenu m_gameOverPanel; 
 
     private GameObject comsObj;
     private GameObject secObj;
     private GameObject engObj;
-    private GameObject flightObj; 
+    private GameObject flightObj;
+    private GameObject startMenuObj;
+    private GameObject gameOverMenuObj;
+
+
+    // Panel Access 
+    public bool hasAccessFlight;
+    public bool hasAccessEng;
+    public bool hasAccessSec;
 
     private void Start()
     {
@@ -24,50 +34,112 @@ public class PanelManager : Singleton<PanelManager>
         m_securityPanel = GetComponentInChildren<SecurityPanel>();
         m_engineeringPanel = GetComponentInChildren<EngineeringPanel>();
         m_flightPanel = transform.GetChild(2).GetComponentInChildren<MapLogic>();
+        m_startPanel = transform.GetComponentInChildren<StartMenu>(); 
+
 
         comsObj = transform.GetChild(1).gameObject;
         secObj = transform.GetChild(3).gameObject;
         engObj = transform.GetChild(0).gameObject;
-        flightObj = transform.GetChild(2).gameObject; 
+        flightObj = transform.GetChild(2).gameObject;
+        startMenuObj = transform.GetChild(4).gameObject;
+        gameOverMenuObj = transform.GetChild(5).gameObject; 
+
+
+        CloseComs();
+        CloseSecurity();
+        CloseEng();
+        CloseFlight();
+        CloseStart();
+        CloseGameOver();
+        OpenStart(); 
     }
 
     public void OpenComs()
     {
+        GameStateManager.Instance.GameState = GAME_STATE.Communication;
+
         comsObj.SetActive(true); 
     }
 
     public void OpenSecurity()
     {
-        secObj.SetActive(true); 
+        if(hasAccessSec)
+        {
+            GameStateManager.Instance.GameState = GAME_STATE.Security; 
+            secObj.SetActive(true);
+        }
+           
     }
 
     public void OpenEng()
     {
-        engObj.SetActive(true); 
+        if(hasAccessEng)
+        {
+            GameStateManager.Instance.GameState = GAME_STATE.Engineering;
+            engObj.SetActive(true);
+        }
+            
     }
 
     public void OpenFlight()
     {
-        flightObj.SetActive(true); 
+        if(hasAccessFlight)
+        {
+            GameStateManager.Instance.GameState = GAME_STATE.Flight;
+            flightObj.SetActive(true);
+        }
+            
     }
 
     public void CloseComs()
     {
+        GameStateManager.Instance.GameState = GAME_STATE.Navigating;
         comsObj.SetActive(false);
     }
 
     public void CloseSecurity()
     {
+        GameStateManager.Instance.GameState = GAME_STATE.Navigating;
+
         secObj.SetActive(false);
     }
 
     public void CloseEng()
     {
+        GameStateManager.Instance.GameState = GAME_STATE.Navigating;
+
         engObj.SetActive(false);
     }
 
     public void CloseFlight()
     {
+        GameStateManager.Instance.GameState = GAME_STATE.Navigating;
+
         flightObj.SetActive(false);
     }
+
+
+
+    // Menus
+    public void OpenStart()
+    {
+        startMenuObj.SetActive(true); 
+    }
+
+    public void OpenGameOver()
+    {
+        gameOverMenuObj.SetActive(true); 
+    }
+
+    public void CloseStart()
+    {
+        startMenuObj.SetActive(false); 
+    }
+
+    public void CloseGameOver()
+    {
+        gameOverMenuObj.SetActive(false); 
+    }
+
+    
 }
