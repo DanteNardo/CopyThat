@@ -1332,7 +1332,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 1380496874314452, guid: ed1ad336b913b754e966aa096b1ca7a9, type: 2}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 224043759569771064, guid: ed1ad336b913b754e966aa096b1ca7a9,
         type: 2}
@@ -2534,6 +2534,11 @@ Prefab:
       propertyPath: timeToJumpApex
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 114746027205479044, guid: 87a2357765801c34292d6718d8b4d770,
+        type: 2}
+      propertyPath: panelManager
+      value: 
+      objectReference: {fileID: 1676454342}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 87a2357765801c34292d6718d8b4d770, type: 2}
   m_IsPrefabParent: 0
