@@ -4,80 +4,67 @@ using UnityEngine;
 
 public class WheelBehavior : Module
 {
-    public float MinAngle;
-    public float MaxAngle;
-    float arPos;
-    Vector3 screenPoint;
-    Vector3 offset;
+    public float minGoalAngle;
+    public float maxGoalAngle;
+    float initialClickAngle;
+    float initialWheelClickAngle;
 
+    /// <summary>
+    /// This does nothing
+    /// </summary>
     protected override void Interact()
     {
-        throw new System.NotImplementedException();
+        
     }
 
     // Use this for initialization
     void Start()
     {
-        bool startAboveMax = Random.Range(0, 2) == 1;   // If true, start above maximum angle. If false, start below minimum angle.
-        
+        //bool startAboveMax = Random.Range(0, 2) == 1;   // If true, start above maximum angle. If false, start below minimum angle.
     }
 
 
-    // Update is called once per frame
-    //void Update()
-    //{
-    //    arPos = arrow.transform.position.y;
-    //    if (Input.GetMouseButtonDown(0))
-    //    {
-    //        RaycastHit2D hit = Physics2D.Raycast(Camera.main.ScreenToWorldPoint(Input.mousePosition), Vector2.zero);
-    //        if (hit)
-    //        {
-    //            Interact();
-    //        }
-    //    }
+    //Update is called once per frame
+    void Update()
+    {
 
-    //    // Checks where arrow is and sets state
-    //    if (arPos >= MinMin && arPos < MinMed)
-    //    {
-    //        currentState = controlState.minimum;
-    //    }
-    //    else if (arPos >= MinMed && arPos < MedMax)
-    //    {
-    //        currentState = controlState.balance;
-    //    }
-    //    else if (arPos >= MedMax && arPos < MaxMax)
-    //    {
-    //        currentState = controlState.maximum;
-    //    }
+    }
 
-    //    // Stops transformation if too far
-    //    if (arPos <= MinMin)
-    //    {
-    //        transform.position = new Vector3(gameObject.transform.position.x, MinMin, gameObject.transform.position.z);
-    //    }
-    //    else if (arPos >= MaxMax)
-    //    {
-    //        transform.position = new Vector3(gameObject.transform.position.x, MaxMax, gameObject.transform.position.z);
-    //    }
+    private void OnMouseDown()
+    {
+        RaycastHit2D hit = Physics2D.Raycast(Camera.main.ScreenToWorldPoint(Input.mousePosition), transform.position - Input.mousePosition);
+        initialClickAngle = Vector2.SignedAngle(transform.position, Camera.main.ScreenToWorldPoint(Input.mousePosition) - transform.position);
+        initialWheelClickAngle = transform.rotation.eulerAngles.z;
+    }
+    
+    private void OnMouseDrag()
+    {
+        Debug.DrawRay(transform.position, Camera.main.ScreenToWorldPoint(Input.mousePosition) - transform.position);
+        transform.rotation = Quaternion.Euler(0, 0,
+            Vector2.SignedAngle(transform.position, Camera.main.ScreenToWorldPoint(Input.mousePosition) - transform.position)
+                - initialClickAngle + initialWheelClickAngle);
 
-    //}
+        if ((maxGoalAngle >= minGoalAngle
+                && transform.rotation.eulerAngles.z <= maxGoalAngle
+                && transform.rotation.eulerAngles.z >= minGoalAngle)
+            || (maxGoalAngle < minGoalAngle
+                && transform.rotation.eulerAngles.z >= maxGoalAngle
+                && transform.rotation.eulerAngles.z <= minGoalAngle))
+        {
+            currentState = controlState.on;
+        }
+        else
+        {
+            currentState = controlState.off;
+        }
+    }
 
-    //// Moves the slider
-    //protected override void Interact()
-    //{
-    //    screenPoint = camera.WorldToScreenPoint(gameObject.transform.position);
-
-    //    offset = gameObject.transform.position - camera.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, screenPoint.z));
-    //    Debug.Log("Inteact Hit");
-    //}
-
-    //private void OnMouseDrag()
-    //{
-    //    Vector3 curScreenPoint = new Vector3(Input.mousePosition.x, Input.mousePosition.y, screenPoint.z);
-
-    //    Vector3 curPosition = camera.ScreenToWorldPoint(curScreenPoint - offset);
-    //    transform.position = new Vector3(gameObject.transform.position.x, curPosition.y, gameObject.transform.position.z);
-    //}
-
-
+    /// <summary>
+    /// Determine if the goal for this wheel has been met
+    /// </summary>
+    /// <returns>True if within the angle range</returns>
+    public bool IsGoalReached()
+    {
+        return currentState == controlState.on;
+    }
 }
